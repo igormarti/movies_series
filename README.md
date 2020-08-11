@@ -34,7 +34,7 @@ This is a web application developed in ReactJS, this app consumes Marvel's web a
   <li><b>REACT_APP_HOST:</b> https://gateway.marvel.com/v1/public/</li>
   <li><b>REACT_APP_TIMESTAMP:</b> In this variable, you must set a timestamp</li>
   <li><b>REACT_APP_APIKEY:</b> In this variable you must set your public key generated on the Marvel developer website.</li>
-  <li><b>REACT_APP_HASH:</b> In this variable you should generate an md5 hash of your: timestamps (REACT_APP_TIMESTAMP), your private key and your public key.  <b>Example: md5 (timestamps + privateKey + publicKey)</b></li>
+  <li><b>REACT_APP_HASH:</b> In this variable you should generate an md5 hash of your: timestamps (REACT_APP_TIMESTAMP), your private key and your public key(REACT_APP_APIKEY).  <b>Example: md5 (timestamps + privateKey + publicKey)</b></li>
 </ul>
 
 <h3>Install dependencies</h3>
