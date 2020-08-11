@@ -37,7 +37,7 @@ This is a web application developed in ReactJS, this app consumes Marvel's web a
   <li><b>REACT_APP_HASH:</b> In this variable you should generate an md5 hash of your: timestamps (REACT_APP_TIMESTAMP), your private key and your public key.  <b>Example: md5 (timestamps + privateKey + publicKey)</b></li>
 </ul>
 
-<h3>Install dependencies/h3>
+<h3>Install dependencies</h3>
 <p> 
  If using <b>npm</b>, run at the root of the project: <b>npm install</b>, if using <b>yarn</b>, run at the root of the project: <b>yarn</b>
 </p>
