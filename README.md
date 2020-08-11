@@ -15,12 +15,13 @@ This is a web application developed in ReactJS, this app consumes Marvel's web a
 
 <ul>
   <li>It is recommended to use version NodeJS >= 10.x</li>
+  <li>npm or yarn</li>
 </ul>
  
  <h3>Marvel Api Keys</h3>
  
  <p> 
-   To consume the marvel api it is necessary to generate some credentials, you can generate this information and see more details on the marvel developer website:      <a href="https://developer.marvel.com/" >here</a>
+   To consume the marvel api it is necessary to generate some credentials, you can generate this information and see more details on the marvel developer website:       <a href="https://developer.marvel.com/" >here</a>
  </p>
  
   <h3>Adding credentials</h3>
@@ -30,10 +31,20 @@ This is a web application developed in ReactJS, this app consumes Marvel's web a
  </p>
  
  <ul>
-  <li><b>REACT_APP_HOST:</b>https://gateway.marvel.com/v1/public/</li>
-  <li><b>REACT_APP_TIMESTAMP:</b>In this variable, you must set a timestamp</li>
-  <li><b>REACT_APP_APIKEY:</b>In this variable you must set your public key generated on the Marvel developer website.</li>
-  <li><b>REACT_APP_HASH:</b>In this variable you should generate an md5 hash of your: timestamps (REACT_APP_TIMESTAMP), your private key and your public key.  <b>Example: md5 (timestamps + privateKey + publicKey)</b></li>
+  <li><b>REACT_APP_HOST:</b> https://gateway.marvel.com/v1/public/</li>
+  <li><b>REACT_APP_TIMESTAMP:</b> In this variable, you must set a timestamp</li>
+  <li><b>REACT_APP_APIKEY:</b> In this variable you must set your public key generated on the Marvel developer website.</li>
+  <li><b>REACT_APP_HASH:</b> In this variable you should generate an md5 hash of your: timestamps (REACT_APP_TIMESTAMP), your private key and your public key.  <b>Example: md5 (timestamps + privateKey + publicKey)</b></li>
 </ul>
+
+<h3>Install dependencies/h3>
+<p> 
+ If using <b>npm</b>, run at the root of the project: <b>npm install</b>, if using <b>yarn</b>, run at the root of the project: <b>yarn</b>
+</p>
+
+<h3>Run the project</h3>
+<ul>
+ <li><b>npm start</b> or <b>yarn start</b></li>
+</ul> 
  
 
