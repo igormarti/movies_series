@@ -14,7 +14,7 @@ export default createGlobalStyle`
     }
 
     body{
-        background-image:url("/assets/img/newmu_base_set_dsk.jpg");
+        background-color: #303030;
         background-repeat: no-repeat;
         background-position:right;
         background-size:cover;
