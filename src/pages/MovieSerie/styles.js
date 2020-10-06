@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Loading = styled.div`
-  background: #003386;
-  color: #fff;
+  background: #000;
+  color: red;
   font-weight: bold;
   display: flex;
   flex-direction: row;
@@ -20,21 +20,53 @@ export const DetailCharacter = styled.main`
 export const DetailCharacterHeader = styled.header`
   margin-top: 15px;
   display: flex;
-  align-items: center;
   img {
-    height: 80px;
-    width: 80px;
+    height: 410px;
+    width: 350px;
     border: 2px solid #999;
     border-radius: 2px;
     margin-left: 15px;
   }
-  span {
-    margin-left: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #777;
+`;
+
+export const OtherDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  p {
+    margin: 5px 20px;
   }
 `;
+
+export const Title = styled.span`
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #777;
+`;
+
+export const Raiting = styled.div`
+  display: flex;
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  width: 75px;
+  padding: 10px;
+  margin: 15px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  align-self: center;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  flex-direction: column;
+
+  span {
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`;
+
 export const DetailCharacterContent = styled.div`
   padding: 0 10px;
   p {

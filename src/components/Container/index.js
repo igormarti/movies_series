@@ -15,7 +15,9 @@ const Container = styled.div`
     align-items: center;
 
     svg {
-      margin-right: 10px;
+      margin: 0 10px;
+      font-size: 25px;
+      color: red;
     }
 
     img {
@@ -26,11 +28,12 @@ const Container = styled.div`
   }
 
   p {
-    font-size: 16px;
+    font-size: 18px;
     text-align: justify;
-    color: #333;
     margin-top: 25px;
-    font-weight: 1.6;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #777;
   }
 
   a {

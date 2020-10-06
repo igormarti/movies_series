@@ -3,14 +3,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // import { Container } from './styles';
 import Main from './pages/Main';
-import Character from './pages/Character';
+import MovieSerie from './pages/MovieSerie';
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Main} />
-        <Route path="/character/:id" component={Character} />
+        <Route path="/movies-series/:id" component={MovieSerie} />
       </Switch>
     </BrowserRouter>
   );

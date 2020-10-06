@@ -1,110 +1,140 @@
 import React, { Component } from 'react';
+import { FaSearch, FaTv } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import Container from '../../components/Container';
 import {
   Form,
   ButtonSubmit,
-  Checker,
-  ListCharacters,
-  Character,
+  ListMoviesSeries,
+  TypeSelected,
+  Option,
+  SpinnerPlus,
+  NotFound,
 } from './styles';
 
-import { searchCharacter } from '../../services/CharacterService';
+import { searchMoviesOrSeries } from '../../services/MoviesSeriesService';
 
 class Main extends Component {
   state = {
-    nameCharacter: '',
-    characters: [],
-    character: {},
-    found: false,
+    text: '',
+    type: '',
+    moviesSeries: [],
+    page: 0,
+    spinner: false,
+    totalResults: 0,
+    notfound: false,
   };
 
-  componentDidMount() {
-    const characters = JSON.parse(localStorage.getItem('characters'));
-
-    if (characters) {
-      this.setState({ characters });
-    }
-  }
-
-  componentDidUpdate(__, prevState) {
-    const { characters } = this.state;
-    if (prevState.characters !== characters) {
-      // const values = _.uniqWith(characters, _.isEqual);
-      localStorage.setItem('characters', JSON.stringify(characters));
-    }
-  }
-
-  handleChange = async (e) => {
-    const nameCharacter = e.target.value;
-    this.setState({ nameCharacter });
-    const response = await searchCharacter(nameCharacter.trim());
-    if (response.results.length) {
+  loadData = async () => {
+    const { text, type } = this.state;
+    this.setState({ page: 1 });
+    const moviesOrSeries = await searchMoviesOrSeries(text, type, 1);
+    if (moviesOrSeries.Response === 'True') {
       this.setState({
-        character: response.results[0],
-        found: true,
+        moviesSeries: moviesOrSeries.Search,
+        totalResults: moviesOrSeries.totalResults,
+        notfound: false,
+      });
+    } else {
+      this.setState({ notfound: true });
+    }
+  };
+
+  loadDataPlus = async () => {
+    const { text, type, moviesSeries, page } = this.state;
+    this.setState({ page: page + 1, spinner: true });
+    const moviesOrSeries = await searchMoviesOrSeries(text, type, page + 1);
+    if (moviesOrSeries.Response === 'True') {
+      this.setState({
+        moviesSeries: [...moviesSeries, ...moviesOrSeries.Search],
+        spinner: false,
       });
     }
   };
 
-  handleSubmit = (e) => {
+  handleChange = (e) => {
+    const text = e.target.value;
+    this.setState({ text });
+  };
+
+  handleSelectType = (type) => {
+    this.setState({ type });
+  };
+
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const { found, characters, character } = this.state;
-    if (found) {
-      const unique = _.uniqWith([...characters, character], _.isEqual);
-      this.setState({
-        found: false,
-        nameCharacter: '',
-        characters: unique,
-        character: {},
-      });
-    }
+    this.loadData();
   };
 
   render() {
-    const { characters, character, nameCharacter, found } = this.state;
+    const {
+      text,
+      type,
+      moviesSeries,
+      spinner,
+      totalResults,
+      notfound,
+    } = this.state;
 
     return (
       <Container>
         <h1>
-          Home
-          <img src="assets/icons/marvel.svg" alt="icone vingadores" />
+          Inicio
+          <FaTv />
         </h1>
-        <p>Search for marvel characters by name, type it in the field below:</p>
+        <p>Encontre filmes ou séries no filtro abaixo:</p>
+
+        <TypeSelected>
+          <Option
+            onClick={() => this.handleSelectType('movie')}
+            selected={type === 'movie'}
+          >
+            Filmes
+          </Option>
+          <Option
+            onClick={() => this.handleSelectType('series')}
+            selected={type === 'series'}
+          >
+            Séries
+          </Option>
+        </TypeSelected>
 
         <Form onSubmit={this.handleSubmit}>
-          <input value={nameCharacter} onChange={this.handleChange} />
-          <ButtonSubmit>Save</ButtonSubmit>
+          <input value={text} onChange={this.handleChange} />
+          <ButtonSubmit disabled={text.length === 0 || type.length === 0}>
+            <FaSearch />
+          </ButtonSubmit>
         </Form>
-        {nameCharacter && (
-          <Checker found={found}>
-            {found
-              ? `character is valid, click save`
-              : `character is not valid`}
-          </Checker>
+        {moviesSeries.length > 0 && (
+          <ListMoviesSeries>
+            <strong>{moviesSeries.length} Registros</strong>
+            {moviesSeries.map((i) => (
+              <li key={i.imdbID}>
+                <img src={`${i.Poster}`} alt={i.name} />
+                <span>{i.Title}</span>
+                <Link to={`/movies-series/${i.Title}`}>Detalhes</Link>
+              </li>
+            ))}
+
+            {moviesSeries.length < totalResults && (
+              <SpinnerPlus>
+                {!spinner ? (
+                  <button onClick={() => this.loadDataPlus()} type="button">
+                    Carregar Mais
+                  </button>
+                ) : (
+                  <img src="/assets/img/spinner.svg" alt="Loading" />
+                )}
+              </SpinnerPlus>
+            )}
+          </ListMoviesSeries>
         )}
-        {character.id && (
-          <Character>
-            <img
-              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-              alt={character.name}
-            />
-            <span>{character.name}</span>
-          </Character>
+
+        {notfound && (
+          <NotFound>
+            <h3>Nenhum Registro encontrado</h3>
+          </NotFound>
         )}
-        <ListCharacters>
-          {characters.map((c) => (
-            <li key={c.id}>
-              <img
-                src={`${c.thumbnail.path}.${c.thumbnail.extension}`}
-                alt={c.name}
-              />
-              <span>{c.name}</span>
-              <Link to={`/character/${c.id}`}>Details</Link>
-            </li>
-          ))}
-        </ListCharacters>
       </Container>
     );
   }
