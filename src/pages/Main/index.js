@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { FaSearch, FaTv } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Container from '../../components/Container';
+import Loading from '../../components/Loading';
 import {
   Form,
   ButtonSubmit,
   ListMoviesSeries,
   TypeSelected,
   Option,
-  SpinnerPlus,
-  NotFound,
+  Empty,
+  ShowMore,
 } from './styles';
 
 import { searchMoviesOrSeries } from '../../services/MoviesSeriesService';
@@ -19,35 +20,41 @@ class Main extends Component {
     text: '',
     type: '',
     moviesSeries: [],
-    page: 0,
-    spinner: false,
+    page: 1,
+    loadingList: false,
+    loading: false,
     totalResults: 0,
-    notfound: false,
+    empty: false,
   };
 
   loadData = async () => {
     const { text, type } = this.state;
-    this.setState({ page: 1 });
-    const moviesOrSeries = await searchMoviesOrSeries(text, type, 1);
+    this.setState({ loading: true });
+    const moviesOrSeries = await searchMoviesOrSeries(text, type);
     if (moviesOrSeries.Response === 'True') {
       this.setState({
         moviesSeries: moviesOrSeries.Search,
         totalResults: moviesOrSeries.totalResults,
-        notfound: false,
+        empty: false,
+        loading: false,
       });
     } else {
-      this.setState({ notfound: true });
+      this.setState({
+        empty: true,
+        moviesSeries: moviesOrSeries,
+        loading: false,
+      });
     }
   };
 
-  loadDataPlus = async () => {
+  showMore = async () => {
     const { text, type, moviesSeries, page } = this.state;
-    this.setState({ page: page + 1, spinner: true });
+    this.setState({ page: page + 1, loadingList: true });
     const moviesOrSeries = await searchMoviesOrSeries(text, type, page + 1);
     if (moviesOrSeries.Response === 'True') {
       this.setState({
         moviesSeries: [...moviesSeries, ...moviesOrSeries.Search],
-        spinner: false,
+        loadingList: false,
       });
     }
   };
@@ -71,10 +78,15 @@ class Main extends Component {
       text,
       type,
       moviesSeries,
-      spinner,
+      loadingList,
+      loading,
       totalResults,
-      notfound,
+      empty,
     } = this.state;
+
+    if (loading) {
+      return <Loading />;
+    }
 
     return (
       <Container>
@@ -117,24 +129,20 @@ class Main extends Component {
             ))}
 
             {moviesSeries.length < totalResults && (
-              <SpinnerPlus>
-                {!spinner ? (
-                  <button onClick={() => this.loadDataPlus()} type="button">
+              <>
+                {!loadingList ? (
+                  <ShowMore onClick={() => this.showMore()} type="button">
                     Carregar Mais
-                  </button>
+                  </ShowMore>
                 ) : (
-                  <img src="/assets/img/spinner.svg" alt="Loading" />
+                  <Loading size="small" />
                 )}
-              </SpinnerPlus>
+              </>
             )}
           </ListMoviesSeries>
         )}
 
-        {notfound && (
-          <NotFound>
-            <h3>Nenhum Registro encontrado</h3>
-          </NotFound>
-        )}
+        {empty && <Empty>Nenhum Registro encontrado</Empty>}
       </Container>
     );
   }

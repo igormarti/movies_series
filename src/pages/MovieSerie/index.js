@@ -5,15 +5,15 @@ import propTypes from 'prop-types';
 import { detailMoviesOrSeries } from '../../services/MoviesSeriesService';
 
 import {
-  Loading,
-  DetailCharacter,
-  DetailCharacterHeader,
-  DetailCharacterContent,
+  Details,
+  DetailHeader,
+  DetailContent,
   OtherDetails,
   Title,
   Raiting,
 } from './styles';
 import Container from '../../components/Container';
+import Loading from '../../components/Loading';
 
 class MovieSerie extends Component {
   static propTypes = {
@@ -44,7 +44,7 @@ class MovieSerie extends Component {
     const { movieSerie, loading } = this.state;
 
     if (loading) {
-      return <Loading>Carregando...</Loading>;
+      return <Loading />;
     }
 
     return (
@@ -56,8 +56,8 @@ class MovieSerie extends Component {
         <Link to="/">Voltar</Link>
         {movieSerie.imdbID && (
           <>
-            <DetailCharacter>
-              <DetailCharacterHeader>
+            <Details>
+              <DetailHeader>
                 <img src={movieSerie.Poster} alt={movieSerie.Title} />
                 <OtherDetails>
                   <Title>Titulo Original: {movieSerie.Title}</Title>
@@ -75,11 +75,11 @@ class MovieSerie extends Component {
                     <strong>Ano:</strong> {movieSerie.Year}
                   </p>
                 </OtherDetails>
-              </DetailCharacterHeader>
-              <DetailCharacterContent>
+              </DetailHeader>
+              <DetailContent>
                 <p>Atores: {movieSerie.Actors}</p>
-              </DetailCharacterContent>
-            </DetailCharacter>
+              </DetailContent>
+            </Details>
           </>
         )}
       </Container>

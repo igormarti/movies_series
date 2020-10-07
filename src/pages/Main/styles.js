@@ -36,30 +36,6 @@ export const Checker = styled.span`
   font-weight: 600;
 `;
 
-export const Character = styled.div`
-  padding: 15px 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 3px;
-  border: 1px solid #d7cece;
-  box-shadow: rgb(0, 0, 0, 0.3);
-  margin-top: 10px;
-  img {
-    height: 80px;
-    width: 80px;
-    border: 2px solid #999;
-    border-radius: 2px;
-    margin-left: 15px;
-  }
-  span {
-    margin-left: 20px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #777;
-  }
-`;
-
 export const TypeSelected = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -112,30 +88,21 @@ export const ListMoviesSeries = styled.ul`
   }
 `;
 
-export const SpinnerPlus = styled.div`
-  display: flex;
-  justify-content: center;
+export const ShowMore = styled.button`
   align-items: color-interpolation-filters;
-
-  button {
-    padding: 10px 15px;
-    border: 0;
-    color: #fff;
-    font-weight: 1.7;
-    background: red;
-    border-radius: 4px;
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  padding: 10px 15px;
+  border: 0;
+  color: #fff;
+  font-weight: 1.7;
+  background: red;
+  border-radius: 4px;
+  margin: auto;
+  display: flex;
 `;
 
-export const NotFound = styled.div`
+export const Empty = styled.h3`
   display: flex;
   justify-content: center;
   align-items: center;
-  h3 {
-    color: #999;
-  }
+  color: #999;
 `;

@@ -1,23 +1,11 @@
 import styled from 'styled-components';
 
-export const Loading = styled.div`
-  background: #000;
-  color: red;
-  font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 22px;
-`;
-
-export const DetailCharacter = styled.main`
+export const Details = styled.main`
   margin-top: 15px;
   border-top: 1px solid #eee;
 `;
 
-export const DetailCharacterHeader = styled.header`
+export const DetailHeader = styled.header`
   margin-top: 15px;
   display: flex;
   img {
@@ -67,7 +55,7 @@ export const Raiting = styled.div`
   }
 `;
 
-export const DetailCharacterContent = styled.div`
+export const DetailContent = styled.div`
   padding: 0 10px;
   p {
     font-size: 16px;
